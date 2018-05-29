@@ -1,0 +1,14 @@
+body {
+  background-image: url('https://az616578.vo.msecnd.net/files/2016/08/08/636062757431890941668859577_mountains-sunshine.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}

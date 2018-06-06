@@ -4,8 +4,10 @@ $(document).ready(function() {
 let fahrenheit = document.querySelector('#fahrenheit');
 let weather = document.querySelector('.weather');
 let temp = 12;
-let lon = '';
-  let lat = '';
+let lon = 1;
+ let lat = 2;
+  let crd = 'a';
+  console.log(temp);
   //end od starter declarations//
 
   
@@ -14,29 +16,31 @@ let lon = '';
   timeout: 5000,
   maximumAge: 0
 };
-
+var weatherAPI = 'https://api.openweathermap.org/data/2.5/weather?lat=';
 function success(pos) {
-  let crd = pos.coords;
-  lat = crd.latitude;
-  lon = crd.longitude;
-  $.getJSON(weatherAPI, data, showWeather);
-}
-
+  crd = pos.coords;
+  console.log(crd);
+   lat = pos.coords.latitude;
+   lon = pos.coords.longitude; //ze względu na jakąs dziwna kolejnosc
+   weatherAPI += lat +'&lon='; // kordynaty nie wydostawały się poza funkcje
+  weatherAPI += lon; // stad deklaracja zmiennej pogodowej i wywołanie API pogodowej znalazly sie w funkcji 
+  weatherAPI +='&APPID=6f502ba12afc62626fa3e95fc8413d94'; // odpowiedzi API geolokacji
+    $.getJSON(weatherAPI, data, showWeather);
+  }
+console.log(crd);
 
 function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 navigator.geolocation.getCurrentPosition(success, error, options);
-console.log(lon);
+
   
   //the weather API//
- // var weatherAPI = 'https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=6f502ba12afc62626fa3e95fc8413d94';
+  //var weatherAPI = 'https://api.openweathermap.org/data/2.5/weather?q=London&APPID=6f502ba12afc62626fa3e95fc8413d94';
   var weatherAPI = 'https://api.openweathermap.org/data/2.5/weather?lat=';
-  weatherAPI += lat +'&lon='
-  weatherAPI += lon 
-  weatherAPI +='&APPID=6f502ba12afc62626fa3e95fc8413d94'
+ 
   var data = {
-    q : "Portland,OR",
+    //q : "Portland,OR",
     units : "metric"
   };
   function showWeather (weatherReport) {
@@ -47,7 +51,7 @@ console.log(lon);
   
   //temp functions//
   celsius.addEventListener('click', (event) => {
-  let tempCelsius = temp;
+  let tempCelsius = temp.toFixed(2);
   if (event.target.tagName == 'BUTTON'){
     let showCelsius = '<h6 class="text-center text-light">Temperature near you: ' + tempCelsius + ' &#8451</h6>';
     weather.innerHTML = showCelsius ;
@@ -55,10 +59,11 @@ console.log(lon);
 });
 
 fahrenheit.addEventListener('click', (event) => {
-  let tempFahrenheit = (9/5) * temp + 32;
+  let tempFahrenheit = ((9/5) * temp + 32).toFixed(2);
   if (event.target.tagName == 'BUTTON'){
     let showFahrenheit = '<h6 class="text-center text-light">Temperature near you: ' + tempFahrenheit + ' &#8457</h6>';
     weather.innerHTML = showFahrenheit ;
   }
   });
+  console.log(lon);
 });

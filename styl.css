@@ -1,6 +1,6 @@
 body {
   background-image: url('https://az616578.vo.msecnd.net/files/2016/08/08/636062757431890941668859577_mountains-sunshine.jpg');
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size: cover;
 }
 #main{

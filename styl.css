@@ -3,6 +3,9 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+#main{
+	padding: 20% 0;
+}
 
 footer {
     position: fixed;

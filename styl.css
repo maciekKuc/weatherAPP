@@ -1,17 +1,26 @@
-body {
-  background-image: url('https://az616578.vo.msecnd.net/files/2016/08/08/636062757431890941668859577_mountains-sunshine.jpg');
+
+#main {
+  background-image: url('./img/spring.jpg');
   background-repeat: repeat-y;
   background-size: cover;
-}
-#main{
+  height: 100vh;
 	padding: 20% 0;
+  position: relative;
 }
 
-footer {
-    position: fixed;
+.footer{
+    position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
     color: white;
     text-align: center;
+}
+
+.temperature{
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }

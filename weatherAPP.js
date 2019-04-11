@@ -81,6 +81,7 @@ fahrenheit.addEventListener('click', (event) => {
     let showFahrenheit = '<h6 class="temperature">Temperature near you: ' + tempFahrenheit + ' &#8457</h6>';
     weather.innerHTML = showFahrenheit ;
   }
-  });
   getWeatherImg();
+  });
+  
 });

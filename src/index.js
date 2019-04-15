@@ -1,10 +1,31 @@
-import getWeather from 'api';
+import getWeather from './api';
+//import { success, error, options } from './geolocationConfig';
 
 const celsius = document.querySelector('#celsius');
 const fahrenheit = document.querySelector('#fahrenheit');
 const weather = document.querySelector('.weather');
+const test = document.querySelector('body');
+
+const success = (pos) => {
+  console.log(pos.coords.latitude);
+  return pos.coords.latitude;
+}
+
+const error = (err) => {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+let options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
 
 
+let cords = navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+getWeather(12, 13);
 
 const getWeatherImg = function(){
     if(temp >= 30){

@@ -1,31 +1,22 @@
 import getWeather from './api';
-//import { success, error, options } from './geolocationConfig';
+import { temp } from './api';
+//import getGeoLocation from './geolocationConfig';
+import { lat, lon, success, error, options } from './geolocationConfig';
 
 const celsius = document.querySelector('#celsius');
 const fahrenheit = document.querySelector('#fahrenheit');
 const weather = document.querySelector('.weather');
-const test = document.querySelector('body');
-
-const success = (pos) => {
-  console.log(pos.coords.latitude);
-  return pos.coords.latitude;
-}
-
-const error = (err) => {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
-let options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-};
 
 
-let cords = navigator.geolocation.getCurrentPosition(success, error, options);
 
+//let cords = getGeoLocation()
+           // .then(position => cords.coords);
+//let cords = navigator.geolocation.getCurrentPosition(success, error, options);
+//let {lon, lat} = navigator.geolocation.getCurrentPosition(success, error, options);
+navigator.geolocation.getCurrentPosition(success, error, options);
+getWeather(lat, lon);
 
-getWeather(12, 13);
+console.log(lat);
 
 const getWeatherImg = function(){
     if(temp >= 30){
@@ -37,10 +28,12 @@ const getWeatherImg = function(){
    }else if(temp < 0){
       document.getElementById('main').style.backgroundImage = "url('./img/snowy.jpg')";
    }
+   
 }
 
 
 celsius.addEventListener('click', (event) => {
+  getWeather(lat, lon);
   let tempCelsius = temp.toFixed(2);
   if (event.target.tagName == 'BUTTON'){
     let showCelsius = '<h6 class="temperature">Temperature near you: ' + tempCelsius + ' &#8451</h6>';
@@ -50,6 +43,7 @@ celsius.addEventListener('click', (event) => {
 });
 
 fahrenheit.addEventListener('click', (event) => {
+  getWeather(lat, lon);
   let tempFahrenheit = ((9/5) * temp + 32).toFixed(2);
   if (event.target.tagName == 'BUTTON'){
     let showFahrenheit = '<h6 class="temperature">Temperature near you: ' + tempFahrenheit + ' &#8457</h6>';

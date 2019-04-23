@@ -1,30 +1,33 @@
-//import getWeather from './api';
+import getWeather from './api';
 
-//export const getGeoLocation = () => new Promise((resolve, reject) => {
-//  function positionSuccess(position) {
-  //    resolve(position);
- // }
- // function error() {
- //   reject();
- // }
- // navigator.geolocation.getCurrentPosition(positionSuccess, error, { enableHighAccuracy: true });
-//});
-
-export let lat = 0;
-export let lon = 0;
-
+export const getGeoLocation = () => new Promise((resolve, reject) => {
+  function positionSuccess(position) {
+      resolve(position);
+  }
+  function error() {
+    reject();
+  }
+  navigator.geolocation.getCurrentPosition(positionSuccess, error, { enableHighAccuracy: true });
+});
 
 export const success = (pos) => {
-  	lon = pos.coords.longitude;
-  	lat = pos.coords.latitude;
+	let position = pos.coords;
+	console.log(position);
+  	return position;
 }
 
 export const error = (err) => {
   console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 
-export let options = {
+export const options = {
   enableHighAccuracy: true,
   timeout: 5000,
   maximumAge: 0
 };
+
+//export const getGeoLocation = async () => {
+	
+	//navigator.geolocation.getCurrentPosition(success, error, options);
+
+//}

@@ -1,7 +1,7 @@
 import getWeather from './api';
-import { temp } from './api';
-//import getGeoLocation from './geolocationConfig';
-import { lat, lon, success, error, options } from './geolocationConfig';
+//import { temp } from './api';
+import { getGeoLocation } from './geolocationConfig';
+//import { success, error, options } from './geolocationConfig';
 
 const celsius = document.querySelector('#celsius');
 const fahrenheit = document.querySelector('#fahrenheit');
@@ -13,10 +13,16 @@ const weather = document.querySelector('.weather');
            // .then(position => cords.coords);
 //let cords = navigator.geolocation.getCurrentPosition(success, error, options);
 //let {lon, lat} = navigator.geolocation.getCurrentPosition(success, error, options);
-navigator.geolocation.getCurrentPosition(success, error, options);
-getWeather(lat, lon);
+let cords;
+let temp;
+getGeoLocation().then(tempData => cords = tempData.coords);
 
-console.log(lat);
+//getGeoLocation().then(tempData => cords = tempData);
+
+setTimeout(getWeather(cords.latitude, 11).then(tempData => temp = tempData), 500);
+//getWeather(40, 11).then(tempData => temp = tempData);
+console.log(temp);
+
 
 const getWeatherImg = function(){
     if(temp >= 30){
@@ -33,17 +39,17 @@ const getWeatherImg = function(){
 
 
 celsius.addEventListener('click', (event) => {
-  getWeather(lat, lon);
   let tempCelsius = temp.toFixed(2);
   if (event.target.tagName == 'BUTTON'){
     let showCelsius = '<h6 class="temperature">Temperature near you: ' + tempCelsius + ' &#8451</h6>';
     weather.innerHTML = showCelsius ;
   }
+  console.log(temp);
+  console.log(cords);
   getWeatherImg();
 });
 
 fahrenheit.addEventListener('click', (event) => {
-  getWeather(lat, lon);
   let tempFahrenheit = ((9/5) * temp + 32).toFixed(2);
   if (event.target.tagName == 'BUTTON'){
     let showFahrenheit = '<h6 class="temperature">Temperature near you: ' + tempFahrenheit + ' &#8457</h6>';
